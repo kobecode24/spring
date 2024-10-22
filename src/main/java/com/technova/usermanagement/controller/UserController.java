@@ -14,12 +14,12 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/")
+    @GetMapping
     public String home() {
-        return "Hello, World!";
+        return "userList";
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public String listUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "userList";

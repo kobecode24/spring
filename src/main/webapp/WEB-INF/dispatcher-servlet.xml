@@ -10,10 +10,13 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!-- Scan for Spring MVC components -->
     <context:component-scan base-package="com.technova.usermanagement"/>
+
+    <!-- Enable Spring MVC annotations -->
     <mvc:annotation-driven/>
 
-    <!-- View Resolver -->
+    <!-- Configure View Resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
