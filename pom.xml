@@ -4,6 +4,7 @@
     <groupId>com.technova</groupId>
     <artifactId>user-management</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <properties>
         <java.version>17</java.version>
