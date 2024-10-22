@@ -15,11 +15,6 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public String home() {
-        return "userList";
-    }
-
-    @GetMapping("/list")
     public String listUsers(Model model) {
         model.addAttribute("users", userService.getAllUsers());
         return "userList";
