@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- Scan for Spring MVC components -->
-    <context:component-scan base-package="com.technova.usermanagement"/>
+    <!-- Simple URL Handler Mapping for Controllers -->
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/">homeController</prop>
+                <prop key="/users">userController</prop>
+                <prop key="/users/new">userController</prop>
+                <prop key="/users/*/edit">userController</prop>
+                <prop key="/users/*/delete">userController</prop>
+                <prop key="/users/save">userController</prop>
+            </props>
+        </property>
+    </bean>
 
-    <!-- Enable Spring MVC annotations -->
-    <mvc:annotation-driven/>
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
 
     <!-- Configure View Resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <mvc:redirect-view-controller path="userController" redirect-url="/users" />
+    <mvc:redirect-view-controller path="homeController" redirect-url="/" />
 </beans>

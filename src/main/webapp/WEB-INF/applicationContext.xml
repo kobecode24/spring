@@ -14,10 +14,20 @@
        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <!-- Enable component scanning for Spring annotations -->
-    <context:component-scan base-package="com.technova.usermanagement"/>
+    <context:component-scan base-package="com.technova.usermanagement.repository"/>
 
     <!-- Enable Spring Data JPA repositories -->
     <jpa:repositories base-package="com.technova.usermanagement.repository"/>
+
+    <bean id="service" class="com.technova.usermanagement.service.UserServiceImpl">
+        <property name="userRepository" ref="userRepository"/>
+    </bean>
+
+    <bean id="userController" class="com.technova.usermanagement.controller.UserController">
+        <property name="userService" ref="service"/>
+    </bean>
+
+    <bean id="homeController" class="com.technova.usermanagement.controller.HomeController" />
 
     <!-- PostgreSQL DataSource Configuration -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

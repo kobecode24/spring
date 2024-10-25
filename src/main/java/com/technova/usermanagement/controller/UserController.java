@@ -2,45 +2,78 @@ package com.technova.usermanagement.controller;
 
 import com.technova.usermanagement.model.User;
 import com.technova.usermanagement.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import lombok.Setter;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
-@Controller
-@RequestMapping("/users")
-@RequiredArgsConstructor
-public class UserController {
+import java.util.Optional;
 
-    private final UserService userService;
+@Setter
+public class UserController implements Controller {
 
-    @GetMapping
-    public String listUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "userList";
+    private UserService userService;
+
+    @Override
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String path = request.getRequestURI();
+        if (path.endsWith("/users")) {
+            return listUsers();
+        } else if (path.endsWith("/users/new")) {
+            return newUserForm();
+        } else if (path.matches("/users/\\d+/edit")) {
+            Long id = extractIdFromPath(path);
+            return editUserForm(id);
+        } else if (path.matches("/users/\\d+/delete")) {
+            Long id = extractIdFromPath(path);
+            return deleteUser(id);
+        } else if (path.endsWith("/users/save")){
+            User user = new User();
+            user.setUsername(request.getParameter("username"));
+            user.setEmail(request.getParameter("email"));
+            user.setPassword(request.getParameter("password"));
+            return saveUser(user);
+        }
+
+        return new ModelAndView("redirect:/users");
     }
 
-    @GetMapping("/new")
-    public String newUserForm(Model model) {
-        model.addAttribute("user", new User());
-        return "userForm";
+    private ModelAndView listUsers() {
+        ModelAndView modelAndView = new ModelAndView("userList");
+        modelAndView.addObject("users", userService.getAllUsers());
+        return modelAndView;
     }
 
-    @PostMapping
-    public String saveUser(@ModelAttribute User user) {
+    private ModelAndView newUserForm() {
+        ModelAndView modelAndView = new ModelAndView("userForm");
+        modelAndView.addObject("user", new User());
+        return modelAndView;
+    }
+
+    private ModelAndView saveUser(User user) {
         userService.saveUser(user);
-        return "redirect:/users";
+        return new ModelAndView("redirect:/users");
     }
 
-    @GetMapping("/{id}/edit")
-    public String editUserForm(@PathVariable Long id, Model model) {
-        userService.getUserById(id).ifPresent(user -> model.addAttribute("user", user));
-        return "userForm";
+    private ModelAndView editUserForm(Long id) {
+        ModelAndView modelAndView = new ModelAndView("userForm");
+        Optional<User> user = userService.getUserById(id);
+        user.ifPresent(value -> modelAndView.addObject("user", value));
+        return modelAndView;
     }
 
-    @GetMapping("/{id}/delete")
-    public String deleteUser(@PathVariable Long id) {
+    private ModelAndView deleteUser(Long id) {
         userService.deleteUser(id);
-        return "redirect:/users";
+        return new ModelAndView("redirect:/users");
+    }
+
+    private Long extractIdFromPath(String path) {
+        String[] segments = path.split("/");
+        return Long.parseLong(segments[segments.length - 2]);
     }
 }
+

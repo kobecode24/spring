@@ -9,6 +9,6 @@ public interface UserService {
     Optional<User> getUserById(Long id);
     Optional<User> getUserByUsername(String username);
     Optional<User> getUserByEmail(String email);
-    User saveUser(User user);
+    void saveUser(User user);
     void deleteUser(Long id);
 }

@@ -6,7 +6,7 @@
 <body>
 <h1>User Form</h1>
 
-<form action="${pageContext.request.contextPath}/users" method="post">
+<form action="${pageContext.request.contextPath}/users/save" method="post">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
     <br>

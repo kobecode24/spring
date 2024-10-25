@@ -3,17 +3,18 @@ package com.technova.usermanagement.service;
 import com.technova.usermanagement.model.User;
 import com.technova.usermanagement.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import lombok.Setter;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 @Transactional
 @RequiredArgsConstructor
+@Setter
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
+
 
     @Override
     public List<User> getAllUsers() {
@@ -36,8 +37,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public void saveUser(User user) {
+        userRepository.save(user);
     }
 
     @Override

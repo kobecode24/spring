@@ -72,6 +72,15 @@
             <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Spring ORM -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>6.1.14</version>
+        </dependency>
+
+
+
     </dependencies>
 
     <build>

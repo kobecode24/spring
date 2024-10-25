@@ -1,13 +1,14 @@
 package com.technova.usermanagement.controller;
 
-import org.springframework.stereotype.*;
-import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
 
-@Controller
-public class HomeController {
+public class HomeController implements Controller {
 
-    @GetMapping("/")
-    public String home() {
-        return "home";
+    @Override
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        return new ModelAndView("home");
     }
 }
