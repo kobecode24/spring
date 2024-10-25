@@ -11,8 +11,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Setter
-@Getter
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

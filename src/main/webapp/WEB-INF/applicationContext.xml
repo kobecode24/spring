@@ -20,11 +20,11 @@
     <jpa:repositories base-package="com.technova.usermanagement.repository"/>
 
     <bean id="service" class="com.technova.usermanagement.service.UserServiceImpl">
-        <property name="userRepository" ref="userRepository"/>
+        <constructor-arg ref="userRepository"/>
     </bean>
 
     <bean id="userController" class="com.technova.usermanagement.controller.UserController">
-        <property name="userService" ref="service"/>
+        <constructor-arg ref="service"/>
     </bean>
 
     <bean id="homeController" class="com.technova.usermanagement.controller.HomeController" />

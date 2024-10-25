@@ -2,19 +2,23 @@ package com.technova.usermanagement.controller;
 
 import com.technova.usermanagement.model.User;
 import com.technova.usermanagement.service.UserService;
+import com.technova.usermanagement.service.UserServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Setter;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
-@Setter
 public class UserController implements Controller {
 
-    private UserService userService;
+    private final UserService userService;
+
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {

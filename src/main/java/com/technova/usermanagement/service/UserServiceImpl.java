@@ -2,19 +2,16 @@ package com.technova.usermanagement.service;
 
 import com.technova.usermanagement.model.User;
 import com.technova.usermanagement.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
-@RequiredArgsConstructor
-@Setter
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public List<User> getAllUsers() {
