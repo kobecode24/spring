@@ -56,17 +56,61 @@ The project demonstrates dependency injection through XML configuration. Key com
 
 - **UserController** depends on **UserService**
 - **UserServiceImpl** depends on **UserRepository**
-- Dependencies are injected through constructor injection and setter injection
+- Dependencies are injected using both constructor injection and setter injection.
 
-Example from `applicationContext.xml`:
+#### Example from `applicationContext.xml`:
 
+**Setter Injection**:
 ```xml
 <bean id="userController" class="com.technova.usermanagement.controller.UserController">
     <property name="userService" ref="userService"/>
 </bean>
 ```
 
+**Corresponding Java Code**:
+```java
+public class UserController implements Controller {
 
+    private UserService userService;
+
+    // Setter method for Dependency Injection
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+}
+```
+
+**Constructor Injection**:
+```xml
+<bean id="userController" class="com.technova.usermanagement.controller.UserController">
+    <constructor-arg ref="userService"/>
+</bean>
+```
+
+**Corresponding Java Code**:
+```java
+public class UserController implements Controller {
+
+    private final UserService userService;
+
+    // Constructor for Dependency Injection
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+}
+```
+
+#### Differences between Setter and Constructor Injection:
+
+1. **Setter Injection**:
+    - Injects dependencies by calling setter methods on the bean after it is created.
+    - Allows optional dependencies, as not all setters must be called.
+    - Provides flexibility when the dependencies can change over the bean's lifecycle.
+
+2. **Constructor Injection**:
+    - Injects dependencies through the constructor when the bean is created.
+    - Ensures that the dependencies are provided when the bean is instantiated, making them mandatory.
+    - Useful for establishing a bean that must have all required dependencies set before it can be used.
 
 ## Inversion of Control (IoC)
 
@@ -137,7 +181,6 @@ public class User {
     private String nationality;
     private LocalDate registrationDate;
     private LocalDate expirationDate;
-    // getters and setters
 }
 ```
 
