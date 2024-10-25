@@ -195,7 +195,7 @@ The application follows the MVC pattern:
 URL mappings:
 
 - `GET /users` - List all users
-- `GET /users/new` - Show new user form
+- `GET /users/new` - Show a new user form
 - `POST /users/save` - Save new user
 - `GET /users/{id}/edit` - Show edit form
 - `POST /users/save` - Update user
@@ -250,13 +250,13 @@ mvn clean install
 
 ### Deployment
 
-- Deploy the WAR file to your application server (e.g., Tomcat, WildFly)
+- Deploy the WAR file to your application server (for example, Tomcat, WildFly)
 - Access the application at: `http://localhost:8080/`
 
 ## Features
 
 - Create new users with validation
-- View list of all users
+- View a list of all users
 - Edit existing users
 - Delete users
 
