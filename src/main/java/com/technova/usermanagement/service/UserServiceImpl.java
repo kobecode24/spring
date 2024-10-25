@@ -27,16 +27,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    @Override
-    public Optional<User> getUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
     public void saveUser(User user) {
         userRepository.save(user);
     }
@@ -44,5 +34,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean identificationDocumentExists(String identificationDocument, Long excludeUserId) {
+        Optional<User> existingUser = userRepository.findByIdentificationDocument(identificationDocument);
+        return existingUser.isPresent() && !existingUser.get().getId().equals(excludeUserId);
     }
 }

@@ -7,8 +7,7 @@ import java.util.Optional;
 public interface UserService {
     List<User> getAllUsers();
     Optional<User> getUserById(Long id);
-    Optional<User> getUserByUsername(String username);
-    Optional<User> getUserByEmail(String email);
     void saveUser(User user);
     void deleteUser(Long id);
+    boolean identificationDocumentExists(String identificationDocument, Long excludeUserId);
 }

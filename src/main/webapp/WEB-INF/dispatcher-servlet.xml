@@ -7,16 +7,17 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- Simple URL Handler Mapping for Controllers -->
+    <!-- URL Handler Mapping for Controllers -->
     <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
         <property name="mappings">
             <props>
                 <prop key="/">homeController</prop>
                 <prop key="/users">userController</prop>
                 <prop key="/users/new">userController</prop>
+                <prop key="/users/save">userController</prop>
+                <prop key="/users/*">userController</prop>
                 <prop key="/users/*/edit">userController</prop>
                 <prop key="/users/*/delete">userController</prop>
-                <prop key="/users/save">userController</prop>
             </props>
         </property>
     </bean>
